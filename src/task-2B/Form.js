@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Form.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Form() {
   const [selectedOption, setSelectedOption] = useState('');
@@ -42,75 +43,91 @@ function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='container'>
-      <div className='wrapper'>
-        <label className='firstName'>
-          First Name<br />
-          <input
-            type='text'
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name<br />
-          <input
-            type='text'
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-      </div>
-      <div className='radioWrapper'>
-        <h1>How should we contact you</h1>
-        <div>
-          <label style={{margin:"20px"}}>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-sm-8 col-md-6 col-lg-4">
+    <div className="card " style={{backgroundColor:'orange'}}>
+      <div className="card-body">
+        <form onSubmit={handleSubmit}>
+  
+            <div className="col-12 mb-3">
+            <label className="form-label">First Name</label>
             <input
-              type='radio'
-              value='number'
-              checked={selectedOption === 'number'}
-              onChange={handleOptionChange}
+              type="text"
+              className="form-control"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
-            Phone Number
-          </label>
-        </div>
-        <div>
-          <label>
+          </div>
+          <div className="col-12 mb-3">
+            <label className="form-label">Last Name</label>
             <input
-              type='radio'
-              value='email'
-              checked={selectedOption === 'email'}
-              onChange={handleOptionChange}
+              type="text"
+              className="form-control"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
-            Email Address
-          </label>
-        </div>
+          </div>
+          
+          <div className="radioWrapper mb-3">
+            <h5>How should we contact you</h5>
+            <div>
+              <label className="form-check-label">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  value="number"
+                  checked={selectedOption === 'number'}
+                  onChange={handleOptionChange}
+                />
+                Phone Number
+              </label>
+            </div>
+            <div>
+              <label className="form-check-label">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  value="email"
+                  checked={selectedOption === 'email'}
+                  onChange={handleOptionChange}
+                />
+                Email Address
+              </label>
+            </div>
+          </div>
+          {selectedOption === 'number' && (
+            <div className="col-12 mb-3">
+              <label className="form-label">Phone Number</label>
+              <input
+                type="number"
+                className="form-control"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+          )}
+          {selectedOption === 'email' && (
+            <div className="col-12 mb-3">
+              <label className="form-label">Email Address</label>
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          )}
+          {isFormComplete === false && (
+            <p className="mb-3 text-danger">Please fill all details.</p>
+          )}
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
       </div>
-      {selectedOption === 'number' && (
-        <div>
-          <label >Phone Number</label>
-          <input
-            type='number'
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </div>
-      )}
-      {selectedOption === 'email' && (
-        <div>
-          <label >Email Address</label>
-          <input
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-      )}
-      {isFormComplete === false && (
-        <p style={{ color: 'red' }}>Please fill all details.</p>
-      )}
-      <button type='submit' style={{margin:'80px'}}>Submit</button>
-    </form>
+    </div>
+  </div>
+  </div>
+  </div>
   );
 }
 
